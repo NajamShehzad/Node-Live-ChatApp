@@ -1,6 +1,8 @@
 const path = require('path');
 var express = require('express');
 
+var port = process.env.PORT || 8000;
+
 var publicPath = path.join(__dirname,'../public')
 var app = express();
 console.log(publicPath);
@@ -13,8 +15,8 @@ app.get('/',(req,res) => {
 });
 
 
-app.listen(8000,()=>{
-    console.log('App Running on Port 8000  ');
+app.listen(port,()=>{
+    console.log(`App Running on Port ${port}`);
 })
 
 
