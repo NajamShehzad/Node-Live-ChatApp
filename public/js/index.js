@@ -4,9 +4,21 @@ socket.on('connect', () => {
     console.log('Connected to server');
 });
 
+
+
+socket.on('newUser', (data) => {
+    console.log(data.User);
+});
+// socket.on('newUser', () => {
+//     console.log('wellcome najam');
+// });
+
+
+
+
 function callme() {
-    socket.emit("createMessage", { from: 'najam', text: "hi there", to: 'najam' });
-    return "yes!"
+
+    return (socket.emit("createMessage", { from: 'najam', text: "hi there", to: 'najam' }));
 }
 socket.on("createMessage", (data) => {
     console.log(data);

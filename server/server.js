@@ -16,7 +16,10 @@ app.use(express.static(publicPath));
 io.on('connection', (socket) => {
     console.log("New user connected");
     // socket.emit('createMessage',{name:'najam',age:21,text:"hi there"});
+    socket.emit('newUser',{User:'welcome here'});
 
+    socket.broadcast.emit('newUser',{User:'Everyone wellcome our new user'});
+    
     socket.on('createMessage', (data) => {
         console.log('Message Recived',data);
         io.emit(`text${data.to}`,{mesaage:'hi there'})
