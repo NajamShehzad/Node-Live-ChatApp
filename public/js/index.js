@@ -7,7 +7,7 @@ socket.on('connect', () => {
 
 
 socket.on('newUser', (data) => {
-    console.log(data.User);
+    console.log(data);
 });
 // socket.on('newUser', () => {
 //     console.log('wellcome najam');

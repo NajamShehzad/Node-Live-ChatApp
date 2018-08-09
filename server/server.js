@@ -8,6 +8,7 @@ var publicPath = path.join(__dirname, '../public')
 var app = express();
 var server = http.createServer(app);
 var io = socketIO(server);
+const {generateMessage} = require('./utils/message');
 console.log(publicPath);
 
 
@@ -15,14 +16,16 @@ app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
     console.log("New user connected");
-    // socket.emit('createMessage',{name:'najam',age:21,text:"hi there"});
-    socket.emit('newUser',{User:'welcome here'});
 
-    socket.broadcast.emit('newUser',{User:'Everyone wellcome our new user'});
+    // socket.emit('createMessage',{name:'najam',age:21,text:"hi there"});
     
+    socket.emit('newUser',generateMessage('admin','Welcome here'));
+
+    socket.broadcast.emit('newUser',generateMessage('admin','everyone welcome new member'));
+
     socket.on('createMessage', (data) => {
-        console.log('Message Recived',data);
-        io.emit(`text${data.to}`,{mesaage:'hi there'})
+        console.log('Message Recived', data);
+        io.emit(`text${data.to}`, { mesaage: 'hi there' })
     });
     socket.on('disconnect', (socket) => {
         console.log('Disconnect from client');
