@@ -12,12 +12,13 @@ form.addEventListener('submit',function(e){
     var from = 'najam';
     var text  = formData.get('field');
     socket.emit("newMessage", { from,text});
+    form.reset();
 
 })
 
 socket.on('newUser', (data)=>{
     console.log('wellcome',data);
-    document.getElementById('list').innerHTML += `<li>${data.from} : ${data.text} </li>`  
+    document.getElementById('messages').innerHTML += `<li>${data.from} : ${data.text} </li>`  
 });
 
 
@@ -25,7 +26,7 @@ socket.on('newUser', (data)=>{
 
 socket.on('newMessage', (data) => {
     console.log(data);
-    document.getElementById('list').innerHTML += `<li>${data.from} : ${data.text} </li>`
+    document.getElementById('messages').innerHTML += `<li>${data.from} : ${data.text} </li>`
 });
 // socket.on('newUser', () => {
 //     console.log('wellcome najam');
