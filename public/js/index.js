@@ -9,7 +9,7 @@ form.addEventListener('submit',function(e){
     e.preventDefault();
     var formData = new FormData(form);
     console.log(formData.get('field'));
-    var from = 'najam';
+    var from = 'User';
     var text  = formData.get('field');
     socket.emit("newMessage", { from,text});
     form.reset();
@@ -18,7 +18,17 @@ form.addEventListener('submit',function(e){
 
 socket.on('newUser', (data)=>{
     console.log('wellcome',data);
-    document.getElementById('messages').innerHTML += `<li>${data.from} : ${data.text} </li>`  
+    var li = ` <li class="message">
+    <div class="message__title">
+      <h4>${data.from}</h4>
+      <span>${data.createdAt}</span>
+    </div>
+    <div class="message__body">
+      <p>${data.text}</p>
+    </div>
+  </li>
+`
+    document.getElementById('messages').innerHTML += li  
 });
 
 
@@ -26,7 +36,17 @@ socket.on('newUser', (data)=>{
 
 socket.on('newMessage', (data) => {
     console.log(data);
-    document.getElementById('messages').innerHTML += `<li>${data.from} ${data.createdAt} : ${data.text} </li>`
+    var li = ` <li class="message">
+    <div class="message__title">
+      <h4>${data.from}</h4>
+      <span>${data.createdAt}</span>
+    </div>
+    <div class="message__body">
+      <p>${data.text}</p>
+    </div>
+  </li>
+`
+    document.getElementById('messages').innerHTML += li;
 });
 // socket.on('newUser', () => {
 //     console.log('wellcome najam');
@@ -39,7 +59,7 @@ socket.on("textnajam", (data) => {
 
 function callme() {
 
-    return (socket.emit("createMessage", { from: 'najam', text: "hi there", to: 'najam' }));
+    return (socket.emit("createMessage", { from: 'User', text: "hi there", to: 'najam' }));
 }
 socket.on("createMessage", (data) => {
     console.log(data);
