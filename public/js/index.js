@@ -3,21 +3,44 @@ var socket = io();
 socket.on('connect', () => {
     console.log('Connected to server');
 });
+function scrollToBottom() {
+    // Selectors
+    var messages = jQuery('#messages');
+    var newMessage = messages.children('li:last-child')
+    // Heights
+    var clientHeight = messages.prop('clientHeight');
+    var scrollTop = messages.prop('scrollTop');
+    var scrollHeight = messages.prop('scrollHeight');
+    var newMessageHeight = newMessage.innerHeight();
+    var lastMessageHeight = newMessage.prev().innerHeight();
 
-var form =document.querySelector('form');
-form.addEventListener('submit',function(e){
+    if (clientHeight + scrollTop + newMessageHeight + lastMessageHeight >= scrollHeight) {
+        messages.scrollTop(scrollHeight);
+    }
+}
+
+
+
+
+
+
+
+
+
+var form = document.querySelector('form');
+form.addEventListener('submit', function (e) {
     e.preventDefault();
     var formData = new FormData(form);
     console.log(formData.get('field'));
     var from = 'User';
-    var text  = formData.get('field');
-    socket.emit("newMessage", { from,text});
+    var text = formData.get('field');
+    socket.emit("newMessage", { from, text });
     form.reset();
 
 })
 
-socket.on('newUser', (data)=>{
-    console.log('wellcome',data);
+socket.on('newUser', (data) => {
+    console.log('wellcome', data);
     var li = ` <li class="message">
     <div class="message__title">
       <h4>${data.from}</h4>
@@ -28,7 +51,7 @@ socket.on('newUser', (data)=>{
     </div>
   </li>
 `
-    document.getElementById('messages').innerHTML += li  
+    document.getElementById('messages').innerHTML += li
 });
 
 
@@ -47,6 +70,7 @@ socket.on('newMessage', (data) => {
   </li>
 `
     document.getElementById('messages').innerHTML += li;
+    scrollToBottom();
 });
 // socket.on('newUser', () => {
 //     console.log('wellcome najam');
