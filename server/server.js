@@ -25,7 +25,7 @@ io.on('connection', (socket) => {
 
     socket.on('newMessage', (data) => {
 
-        io.emit(`newMessage`, data)
+        io.emit(`newMessage`,generateMessage(data.from,data.text))
     });
     socket.on('disconnect', (socket) => {
         console.log('Disconnect from client');

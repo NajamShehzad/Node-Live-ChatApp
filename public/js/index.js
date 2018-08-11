@@ -26,7 +26,7 @@ socket.on('newUser', (data)=>{
 
 socket.on('newMessage', (data) => {
     console.log(data);
-    document.getElementById('messages').innerHTML += `<li>${data.from} : ${data.text} </li>`
+    document.getElementById('messages').innerHTML += `<li>${data.from} ${data.createdAt} : ${data.text} </li>`
 });
 // socket.on('newUser', () => {
 //     console.log('wellcome najam');
